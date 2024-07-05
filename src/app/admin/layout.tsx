@@ -15,7 +15,9 @@ export default function AdminLayout({
         <NavLink href={"/admin/customers"}>Customers</NavLink>
         <NavLink href={"/admin/sales"}>Sales</NavLink>
       </Nav>
-      {children}
+      <main className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+        {children}
+      </main>
     </div>
   );
 }
