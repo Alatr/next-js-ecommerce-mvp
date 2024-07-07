@@ -10,12 +10,12 @@ import db from "@/db/db";
 import { formatCurrency, formatNumber } from "@/lib/formatters";
 import React from "react";
 
-export default async function Admin() {
+export default async function AdminPage() {
   const { amount, numberOfSales } = await getSalesData();
   const { averageValuePerUser, usersCount } = await getUsersData();
   const { activeProducts, inactiveProducts } = await getProductsData();
   return (
-    <>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       <DashboardCard
         title="Sales"
         subtitle={`${formatNumber(numberOfSales)} Orders`}
@@ -31,7 +31,7 @@ export default async function Admin() {
         subtitle={`${formatNumber(activeProducts)} Active Products`}
         body={`${formatNumber(inactiveProducts)} Inactive Products`}
       />
-    </>
+    </div>
   );
 }
 
