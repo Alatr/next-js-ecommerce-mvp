@@ -1,27 +1,30 @@
 import { ProductCard, ProductCardSkeleton } from "@/components/productCard";
 import { Button } from "@/components/ui/button";
 import db from "@/db/db";
+import { cache } from "@/lib/cache";
+import { ONE_DAY } from "@/lib/const";
 import { wait } from "@/lib/utils";
 import { Product } from "@prisma/client";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import React, { Suspense } from "react";
 
-const getMostPopularProducts = async () => {
+
+const getMostPopularProducts = cache(async () => {
   return db.product.findMany({
     where: { isAvailableForPurchase: true },
     orderBy: { orders: { _count: "desc" } },
     take: 6,
   });
-};
+}, ['/', 'getMostPopularProducts'], { revalidate: ONE_DAY });
 
-const getNewestProducts = async () => {
+const getNewestProducts = cache(async () => {
   return db.product.findMany({
     where: { isAvailableForPurchase: true },
     orderBy: { createdAt: "desc" },
     take: 6,
   });
-};
+}, ['/', 'getNewestProducts'], {revalidate: ONE_DAY});
 
 export default async function HomePage() {
   return (

@@ -1,14 +1,17 @@
 import { ProductCard, ProductCardSkeleton } from "@/components/productCard";
 import db from "@/db/db";
+import { cache } from "@/lib/cache";
+import { ONE_DAY } from "@/lib/const";
 import { wait } from "@/lib/utils";
 import { Product } from "@prisma/client";
 import { Suspense } from "react";
 
-const getProducts = async () => {
+const getProducts = cache(async () => {
   return db.product.findMany({
     where: { isAvailableForPurchase: true },
   });
-};
+}, ['/products', 'getProducts']);
+
 export default function ProductsPage() {
   return (
     <div className="mb-4">
