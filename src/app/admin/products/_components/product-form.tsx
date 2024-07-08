@@ -83,7 +83,12 @@ export const ProductForm: FC<ProductFormProps> = ({
         <Input type="file" id="image" name="image" required={!product} />
         {error.image && <div className="text-destructive">{error.image}</div>}
         {product != null && (
-          <Image src={product?.imagePath} height={300} width={400} />
+          <Image
+            src={product?.imagePath}
+            height={300}
+            width={400}
+            alt="image"
+          />
         )}
       </div>
 
