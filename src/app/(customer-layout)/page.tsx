@@ -23,7 +23,7 @@ const getNewestProducts = async () => {
   });
 };
 
-export default async function ProductsPage() {
+export default async function HomePage() {
   return (
     <>
       <ProductsGrid
