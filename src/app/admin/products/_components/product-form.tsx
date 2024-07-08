@@ -79,7 +79,7 @@ export const ProductForm: FC<ProductFormProps> = ({
         )}
       </div>
       <div className="space-y-2">
-        <Label htmlFor="image">File</Label>
+        <Label htmlFor="image">Image</Label>
         <Input type="file" id="image" name="image" required={!product} />
         {error.image && <div className="text-destructive">{error.image}</div>}
         {product != null && (
