@@ -3,13 +3,12 @@ import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { Resend } from "resend";
 import { ONE_DAY } from "@/lib/const";
-// import PurchaseReceiptEmail from "@/email/PurchaseReceipt";
+import PurchaseReceiptEmail from "@/email/PurchaseReceipt";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 const resend = new Resend(process.env.RESEND_API_KEY as string);
 
 export async function POST(req: NextRequest) {
-  console.log(999123, req);
   const event = await stripe.webhooks.constructEvent(
     await req.text(),
     req.headers.get("stripe-signature") as string,
@@ -52,12 +51,11 @@ export async function POST(req: NextRequest) {
       to: ["delivered@resend.dev"],
       subject: "Order Confirmation",
       react: (
-        <h1>hi</h1>
-        // <PurchaseReceiptEmail
-        //   order={order}
-        //   product={product}
-        //   downloadVerificationId={downloadVerification.id}
-        // />
+        <PurchaseReceiptEmail
+          order={order}
+          product={product}
+          downloadVerificationId={downloadVerification.id}
+        />
       ),
     });
   }

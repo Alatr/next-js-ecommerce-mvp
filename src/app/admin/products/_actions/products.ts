@@ -52,8 +52,8 @@ export async function addProduct(prevState: unknown, formData: FormData) {
       imagePath,
     },
   });
-  revalidatePath('/');
-  revalidatePath('/products');
+  revalidatePath("/");
+  revalidatePath("/products");
   redirect("/admin/products");
 }
 
@@ -86,7 +86,7 @@ export async function updateProduct(
   }
 
   if (image != null && image.size > 0) {
-    // await fs.unlink(`public${imagePath}`);
+    await fs.unlink(`public${imagePath}`);
     imagePath = `/products/${crypto.randomUUID()}-${image.name}`;
     await fs.writeFile(
       `public${imagePath}`,
@@ -104,8 +104,8 @@ export async function updateProduct(
       imagePath,
     },
   });
-  revalidatePath('/');
-  revalidatePath('/products');
+  revalidatePath("/");
+  revalidatePath("/products");
   redirect("/admin/products");
 }
 
@@ -114,8 +114,8 @@ export async function toggleProductAvailability(
   isAvailableForPurchase: boolean
 ) {
   await db.product.update({ where: { id }, data: { isAvailableForPurchase } });
-  revalidatePath('/');
-  revalidatePath('/products');
+  revalidatePath("/");
+  revalidatePath("/products");
 }
 
 export async function deleteProduct(id: string) {
@@ -124,6 +124,6 @@ export async function deleteProduct(id: string) {
 
   await fs.unlink(product.filePath);
   await fs.unlink(`public${product.imagePath}`);
-  revalidatePath('/');
-  revalidatePath('/products');
+  revalidatePath("/");
+  revalidatePath("/products");
 }

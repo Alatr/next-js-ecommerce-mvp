@@ -8,13 +8,13 @@ export default function AdminLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div>
+    <>
       <Nav>
         <NavLink href={"/"}>Home</NavLink>
         <NavLink href={"/products"}>Products</NavLink>
         <NavLink href={"/orders"}>My Orders</NavLink>
       </Nav>
       <main className="p-4">{children}</main>
-    </div>
+    </>
   );
 }
